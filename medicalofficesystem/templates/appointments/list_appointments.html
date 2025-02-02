@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Λίστα Ραντεβού{% endblock %}
+
+{% block content %}
+    <h2>Λίστα Ραντεβού</h2>
+    
+    <!-- Αν ο χρήστης είναι ασθενής, εμφανίζεται το κουμπί για κλείσιμο ραντεβού -->
+    {% if user.role == 'patient' %}
+        <a href="{% url 'medicalofficesystem:book_appointment' %}" class="btn btn-success">Κλείσιμο Ραντεβού</a>
+    {% endif %}
+    
+    <!-- Δημιουργία πίνακα για την εμφάνιση των ραντεβού -->
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Ημερομηνία</th>
+                <th>Ώρα</th>
+                <th>Ιατρός</th>
+                <th>Κατάσταση</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Εμφανίζονται τα ραντεβού από τη μεταβλητή appointments -->
+            {% for appointment in appointments %}
+                <tr>
+                    <td>{{ appointment.date }}</td>
+                    <td>{{ appointment.time }}</td>
+                    <td>{{ appointment.doctor.user.email }}</td>
+                    <td>{{ appointment.status }}</td>
+                </tr>
+            {% empty %}
+                <!-- Αν δεν υπάρχουν ραντεβού, εμφανίζεται μήνυμα -->
+                <tr><td colspan="4">Δεν υπάρχουν ραντεβού.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

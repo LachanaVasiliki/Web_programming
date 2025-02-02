@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}Προφίλ - Σύστημα διαχείρισης Ιατρείου{% endblock %}
+
+{% block content %}
+    <h2>Προφίλ Χρήστη</h2>
+    <p><strong>Όνομα:</strong> {{ user.first_name }}</p>
+    <p><strong>Επώνυμο:</strong> {{ user.last_name }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>Τηλέφωνο:</strong> {{ user.phone.national_number }}</p>
+{% endblock %}

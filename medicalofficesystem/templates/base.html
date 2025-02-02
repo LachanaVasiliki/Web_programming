@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Ο τίτλος της σελίδας αλλάζει δυναμικά ανάλογα με το μπλοκ title -->
+    <title>{% block title %}Σύστημα διαχείρισης Ιατρείου{% endblock %}</title>
+</head>
+<body>
+    <!-- Επικεφαλίδα της σελίδας -->
+    <header>
+        <h1>Σύστημα διαχείρισης Ιατρείου</h1>
+    </header>
+
+    <!-- Μενού πλοήγησης -->
+    <nav>
+        <ul>
+            <!-- Σύνδεσμοι για την πλοήγηση στις διάφορες σελίδες του συστήματος -->
+            <li><a href="{% url 'medicalofficesystem:index' %}">Αρχική</a></li>
+            <li><a href="{% url 'medicalofficesystem:medicaloffices' %}">Ιατρεία</a></li>
+
+            <!-- Αν ο χρήστης είναι συνδεδεμένος, εμφανίζονται οι επιλογές για προφίλ και ραντεβού -->
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'medicalofficesystem:profile' %}">Προφίλ</a></li>
+                <li><a href="{% url 'medicalofficesystem:view_user_appointments' %}">Τα ραντεβού μου</a></li>
+                <li><a href="{% url 'medicalofficesystem:logout' %}">Αποσύνδεση</a></li>
+            {% else %}
+                <!-- Αν ο χρήστης δεν είναι συνδεδεμένος, εμφανίζονται σύνδεσμοι για σύνδεση ή εγγραφή -->
+                <li><a href="{% url 'medicalofficesystem:login' %}">Σύνδεση</a></li>
+                <li><a href="{% url 'medicalofficesystem:signup' %}">Εγγραφή</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    <!-- Κύριο περιεχόμενο της σελίδας -->
+    <main>
+        {% block content %}
+        <!-- Εδώ θα εισάγεται το δυναμικό περιεχόμενο από τα templates -->
+        {% endblock %}
+    </main>
+</body>
+</html>

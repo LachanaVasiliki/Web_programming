@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ medicaloffice.name }} - Προβολή Ραντεβού {% endblock %}
+
+{% block content %}
+  <h1>Προγραμματισμένα Ραντεβού</h1>
+  <ul>
+    {% if appointments %}
+      {% for appointment in appointments %}
+        <li>
+          <a href="{% url 'medicalofficesystem:appointment_detail' appointment_id=appointment.id %}">
+            Ραντεβού με τον Dr. {{ appointment.doctor.user.email }} στις {{ appointment.date_time }}
+          </a>
+        </li>
+      {% endfor %}
+    {% else %}
+      <p>Δεν υπάρχουν προγραμματισμένα ραντεβού για αυτό το ιατρείο.</p>
+    {% endif %}
+  </ul>
+{% endblock %}

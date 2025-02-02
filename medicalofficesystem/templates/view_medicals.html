@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Προβολή Ιατρείων - Σύστημα διαχείρισης Ιατρείου{% endblock %}
+
+{% block content %}
+    <h2>Ιατρεία</h2>
+    {% if medicaloffices %}
+        <ul>
+            {% for medicaloffice in medicaloffices %}
+                <li>
+                    <a href="{% url 'medicalofficesystem:medicaloffice_details' medicaloffice.id %}">
+                        {{ medicaloffice.name }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Δεν υπάρχουν διαθέσιμα ιατρεία.</p>
+    {% endif %}
+{% endblock %}

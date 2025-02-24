@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Λίστα Γιατρών - Σύστημα διαχείρισης Ιατρείου{% endblock %}
+
+{% block content %}
+    <h2>Λίστα Γιατρών</h2>
+    {% if doctors %}
+        <ul>
+            {% for doctor in doctors %}
+                <li>{{ doctor.user.first_name }} {{ doctor.user.last_name }} - {{ doctor.specialty }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Δεν υπάρχουν διαθέσιμοι γιατροί.</p>
+    {% endif %}
+
+    <div class="mt-3">
+        <a href="{% url 'medicalofficesystem:index' %}" class="btn btn-secondary">Επιστροφή στο Προφίλ</a>
+    </div>
+{% endblock %}

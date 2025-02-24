@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Ιατρικό Ιστορικό - Σύστημα διαχείρισης Ιατρείου{% endblock %}
+
+{% block content %}
+    <h2>Ιατρικό Ιστορικό του {{ patient.user.first_name }} {{ patient.user.last_name }}</h2>
+
+    {% if records %}
+        <ul>
+            {% for record in records %}
+                <li>
+                    <a href="{% url 'medicalofficesystem:medical_record_detail' record_id=record.id %}">
+                        Ιατρικό Αρχείο - {{ record.date }} - Διάγνωση: {{ record.diagnosis }}
+                    </a>
+                    <!-- Κουμπί διαγραφής -->
+                    {% if user.is_authenticated and user.role|lower == 'doctor' %}
+                         <form method="post" action="{% url 'medicalofficesystem:delete_medical_record' amka=patient.amka record_id=record.id %}" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Σίγουρα θέλετε να διαγράψετε αυτό το αρχείο;')">
+                            Διαγραφή
+                        </button>
+                        </form>
+                    {% endif %}
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Δεν υπάρχουν καταχωρημένα ιατρικά αρχεία.</p>
+    {% endif %}
+    <hr>
+
+    <!-- Κουμπί για προσθήκη νέου ιστορικού -->
+    {% if user.is_authenticated and user.role|lower == 'doctor' %}
+        <a href="{% url 'medicalofficesystem:add_medical_record' amka=patient.amka %}" class="btn btn-primary">Προσθήκη Ιατρικού Ιστορικού</a>
+    {% endif %}
+
+    <a href="javascript:history.back()" class="btn btn-secondary">Πίσω</a>
+{% endblock %}

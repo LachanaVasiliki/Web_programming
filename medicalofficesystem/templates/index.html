@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Σύστημα διαχείρισης Ιατρείου{% endblock %}
+
+{% block content %}
+    <h2>Καλωσήρθατε στο Σύστημα διαχείρισης Ιατρείου</h2>
+
+
+    <div class="mt-4">
+        {% if not user.is_authenticated %}
+            <a href="{% url 'medicalofficesystem:login' %}" class="btn btn-primary">Σύνδεση</a>
+            <a href="{% url 'medicalofficesystem:signup' %}" class="btn btn-success">Εγγραφή</a>
+        {% endif %}
+        <a href="{% url 'medicalofficesystem:view_medical_offices' %}" class="btn btn-info">Προβολή Ιατρείων</a>
+    </div>
+{% endblock %}

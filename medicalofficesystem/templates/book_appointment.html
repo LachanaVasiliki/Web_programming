@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Κλείσιμο Ραντεβού{% endblock %}
+
+{% block content %}
+    <h2>Κλείσιμο Νέου Ραντεβού</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-success">Κλείσιμο</button>
+    </form>
+    <p></p>
+    <a href="{% url 'medicalofficesystem:list_appointments' %}" class="btn btn-secondary">Επιστροφή</a>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Προφίλ - Σύστημα διαχείρισης Ιατρείου{% endblock %}
+
+{% block content %}
+    <h2>Προφίλ Χρήστη</h2>
+    <p><strong>Όνομα:</strong> {{ user.first_name }}</p>
+    <p><strong>Επώνυμο:</strong> {{ user.last_name }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>Τηλέφωνο:</strong> {{ user.phone.national_number }}</p>
+
+    <hr>
+
+    {% if user.is_authenticated %}
+        {% if user.role|lower == "patient" %}
+            <a class="btn btn-secondary" href="{% url 'medicalofficesystem:view_medical_history' amka %}">Ιατρικό Ιστορικό</a>
+            <a href="{% url 'medicalofficesystem:view_user_appointment' %}" class="btn btn-info">Τα Ραντεβού Μου</a>
+            <a href="{% url 'medicalofficesystem:book_appointment' %}" class="btn btn-primary">Κλείσιμο Ραντεβού</a><p></p>
+        {% elif user.role|lower == "secretary" and medicaloffice %}
+            <a class="btn btn-primary" href="{% url 'medicalofficesystem:view_med_appointment' medicaloffice.id %}">Διαχείριση Ραντεβού</a>
+            <a class="btn btn-secondary" href="{% url 'medicalofficesystem:list_patients' %}">Διαχείριση Ασθενών</a>
+            <a class="btn btn-info" href="{% url 'medicalofficesystem:medicaloffice_details' medicaloffice.id%}">Λεπτομέρειες Ιατρείου</a><p></p>
+        {% elif user.role|lower == "doctor" and medicaloffice %}
+            <a class="btn btn-primary" href="{% url 'medicalofficesystem:view_med_appointment' medicaloffice.id %}">Όλα τα Ραντεβού</a>
+            <a class="btn btn-info" href="{% url 'medicalofficesystem:medicaloffice_details' medicaloffice.id %}">Λεπτομέρειες Ιατρείου</a>
+            <a class="btn btn-secondary" href="{% url 'medicalofficesystem:list_patients' %}">Ασθενείς</a><p></p>
+        {% endif %}
+    {% endif %}
+    <!-- κουμπια για logout, booking appointment, and viewing appointments -->
+    <a href="{% url 'medicalofficesystem:logout' %}" class="btn btn-danger">Αποσύνδεση</a>
+{% endblock %}

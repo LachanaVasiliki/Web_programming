@@ -8,6 +8,7 @@ ________________________________________
 Academic Requirements
 
 The system was designed according to specific requirements set by the course instructor:
+
 •	The Medical Office is identified by its name, not by a numeric ID.
 •	A Medical Office can only be associated with a user who is a Doctor.
 •	Patients are not allowed to own or manage a Medical Office.
@@ -16,32 +17,33 @@ The purpose of these constraints is to reflect real-world semantics and prevent 
 ________________________________________
 What the System Does
 
-User Roles
+User Roles:
 
 •	Doctor
 o	Can be linked to a Medical Office
 o	Can manage office-related data
 
-•	Patient
+•	Patient:
 o	Has restricted access
 o	Cannot be associated with a Medical Office
 
-Medical Office Management
+Medical Office Management:
 •	Creation of medical offices using a unique name
 •	Validation to prevent duplicate or invalid entries
 •	Explicit checks to ensure only doctors can be assigned
 ________________________________________
 Data Model Notes
 
-•	MedicalOffice
+•	MedicalOffice:
 
 o	Uses name as the primary identifier
 o	Linked to a user only if the user has the Doctor role
 
-•	User
+•	User:
 
 o	Includes a role field (Doctor / Patient)
 o	Role is validated before relationships are created
+
 All constraints are enforced server-side to avoid bypassing the rules.
 ________________________________________
 Security & Validation
